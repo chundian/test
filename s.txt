@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="light-theme">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOMA Sanctuary | Yoni Spa</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #8b5cf6;
+            --secondary: #a78bfa;
+            --accent: #ec4899;
+            --background: #f8fafc;
+            --surface: #ffffff;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --border: #e2e8f0;
+            --shadow: rgba(0, 0, 0, 0.1);
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .dark-theme {
+            --primary: #a78bfa;
+            --secondary: #c4b5fd;
+            --accent: #f472b6;
+            --background: #0f172a;
+            --surface: #1e293b;
+            --text-primary: #f1f5f9;
+            --text-secondary: #cbd5e1;
+            --border: #334155;
+            --shadow: rgba(0, 0, 0, 0.3);
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: var(--background);
+            color: var(--text-primary);
+            transition: var(--transition);
+        }
+        
+        .text-gradient {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .card-glass {
+            backdrop-filter: blur(12px);
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .dark-theme .card-glass {
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .btn-primary {
+            transition: var(--transition);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 6px var(--shadow);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 25px -5px var(--shadow);
+        }
+        
+        .section-padding {
+            padding: 8rem 2rem 6rem;
+        }
+        
+        .floating-animation {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .hero-pattern {
+            position: relative;
+            overflow: hidden;
+            background: radial-gradient(circle at 20% 50%, rgba(139, 92, 246, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(16, 185, 129, 0.1) 0%, transparent 50%);
+        }
+        
+        .dark-theme .hero-pattern {
+            background: radial-gradient(circle at 20% 50%, rgba(167, 139, 250, 0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(244, 114, 182, 0.15) 0%, transparent 50%);
+        }
+        
+        .treatment-card {
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-radius: 1.5rem;
+            background: var(--surface);
+            box-shadow: 0 10px 15px -3px var(--shadow);
+        }
+        
+        .dark-theme .treatment-card {
+            background: rgba(30, 41, 59, 0.9);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+        }
+        
+        .treatment-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px -12px var(--shadow);
+        }
+        
+        .pulse-effect {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        .floating-element {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
+            opacity: 0.1;
+            z-index: 0;
+        }
+        
+        .dark-floating-element {
+            background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
+            opacity: 0.05;
+        }
+        
+        .floating-element:nth-child(1) {
+            top: 10%;
+            left: 5%;
+            animation: float 8s ease-in-out infinite;
+        }
+        
+        .floating-element:nth-child(2) {
+            bottom: 15%;
+            right: 10%;
+            background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
+            animation: float 10s ease-in-out infinite;
+            animation-delay: 2s;
+        }
+        
+        .floating-element:nth-child(3) {
+            top: 40%;
+            right: 25%;
+            background: radial-gradient(circle, var(--secondary) 0%, transparent 70%);
+            animation: float 12s ease-in-out infinite;
+            animation-delay: 4s;
+        }
+        
+        .gradient-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, 
+                rgba(139, 92, 246, 0.05) 0%, 
+                rgba(236, 72, 153, 0.05) 50%, 
+                rgba(16, 185, 129, 0.05) 100%);
+            z-index: -1;
+        }
+        
+        .dark-gradient-overlay {
+            background: linear-gradient(135deg, 
+                rgba(167, 139, 250, 0.08) 0%, 
+                rgba(244, 114, 182, 0.08) 50%, 
+                rgba(139, 92, 246, 0.08) 100%);
+        }
+        
+        .stats-card {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: 2rem;
+            background: var(--surface);
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px var(--shadow);
+        }
+        
+        .dark-theme .stat-item {
+            background: rgba(30, 41, 59, 0.9);
+        }
+        
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .process-step {
+            position: relative;
+            padding: 2rem;
+            background: var(--surface);
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px var(--shadow);
+            margin-bottom: 2rem;
+        }
+        
+        .dark-theme .process-step {
+            background: rgba(30, 41, 59, 0.9);
+        }
+        
+        .process-step:not(:last-child):after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 2rem;
+            background: var(--primary);
+        }
+        
+        .step-number {
+            position: absolute;
+            top: -1.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 3rem;
+            height: 3rem;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        .testimonial-card {
+            background: var(--surface);
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: 0 4px 6px var(--shadow);
+            margin: 1rem;
+        }
+        
+        .dark-theme .testimonial-card {
+            background: rgba(30, 41, 59, 0.9);
+        }
+        
+        .quote-mark {
+            font-size: 4rem;
+            color: var(--primary);
+            opacity: 0.2;
+            line-height: 1;
+            margin-bottom: -1.5rem;
+        }
+        
+        .floating-shapes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.1;
+            animation: drift 20s linear infinite;
+        }
+        
+        .dark-shape {
+            opacity: 0.05;
+        }
+        
+        @keyframes drift {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            100% { transform: translate(100vw, 100vh) rotate(360deg); }
+        }
+        
+        /* Dark theme specific improvements */
+        .dark-theme nav {
+            background: rgba(15, 23, 42, 0.95) !important;
+            backdrop-filter: blur(20px) !important;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+        }
+        
+        .dark-theme .btn-primary {
+            box-shadow: 0 4px 15px rgba(167, 139, 250, 0.3);
+        }
+        
+        .dark-theme .btn-primary:hover {
+            box-shadow: 0 20px 25px -5px rgba(167, 139, 250, 0.4);
+        }
+        
+        .dark-theme input, 
+        .dark-theme select,
+        .dark-theme textarea {
+            background: rgba(30, 41, 59, 0.8) !important;
+            border: 1px solid rgba(255, 255, 255, 0.1) !important;
+            color: var(--text-primary) !important;
+        }
+        
+        .dark-theme input:focus, 
+        .dark-theme select:focus,
+        .dark-theme textarea:focus {
+            border-color: var(--primary) !important;
+            box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.3) !important;
+        }
+        
+        .dark-theme footer {
+            border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+        }
+        
+        /* Improved contrast for text */
+        .dark-theme h1, .dark-theme h2, .dark-theme h3, .dark-theme h4, .dark-theme h5, .dark-theme h6 {
+            color: #f8fafc !important;
+        }
+        
+        .dark-theme .text-stone-900 {
+            color: #f8fafc !important;
+        }
+        
+        .dark-theme .text-stone-600 {
+            color: #cbd5e1 !important;
+        }
+        
+        .dark-theme .text-emerald-600 {
+            color: #34d399 !important;
+        }
+        
+        .dark-theme .border-stone-200\/50 {
+            border-color: rgba(255, 255, 255, 0.1) !important;
+        }
+        
+        .dark-theme .bg-white\/50 {
+            background: rgba(30, 41, 59, 0.8) !important;
+        }
+        
+        .dark-theme .bg-gradient-to-br.from-stone-50.to-purple-50\/30 {
+            background: linear-gradient(to bottom right, rgba(30, 41, 59, 0.8), rgba(167, 139, 250, 0.1)) !important;
+        }
+        
+        .dark-theme .bg-gradient-to-br.from-stone-50.to-emerald-50\/30 {
+            background: linear-gradient(to bottom right, rgba(30, 41, 59, 0.8), rgba(16, 185, 129, 0.1)) !important;
+        }
+        
+        .dark-theme .hover\:bg-stone-100:hover {
+            background: rgba(255, 255, 255, 0.1) !important;
+        }
+        
+        .dark-theme .hover\:bg-stone-200:hover {
+            background: rgba(255, 255, 255, 0.15) !important;
+        }
+        
+        .dark-theme .dark\:bg-neutral-950\/80 {
+            background: rgba(15, 23, 42, 0.95) !important;
+        }
+        
+        .dark-theme .dark\:bg-neutral-800 {
+            background: rgba(30, 41, 59, 0.8) !important;
+        }
+        
+        .dark-theme .dark\:bg-neutral-900\/50 {
+            background: rgba(15, 23, 42, 0.5) !important;
+        }
+        
+        .dark-theme .dark\:hover\:bg-neutral-800:hover {
+            background: rgba(30, 41, 59, 0.9) !important;
+        }
+        
+        .dark-theme .dark\:hover\:bg-neutral-700:hover {
+            background: rgba(51, 65, 85, 0.9) !important;
+        }
+        
+        .dark-theme .dark\:text-stone-300 {
+            color: #cbd5e1 !important;
+        }
+        
+        .dark-theme .dark\:text-stone-100 {
+            color: #f8fafc !important;
+        }
+        
+        .dark-theme .dark\:text-stone-400 {
+            color: #94a3b8 !important;
+        }
+        
+        .dark-theme .dark\:border-neutral-800\/50 {
+            border-color: rgba(255, 255, 255, 0.1) !important;
+        }
+        
+        /* Theme toggle icon visibility */
+        .theme-toggle-container i {
+            display: none;
+        }
+        
+        .light-theme .theme-toggle-container .light-icon {
+            display: inline;
+        }
+        
+        .dark-theme .theme-toggle-container .dark-icon {
+            display: inline;
+        }
+    </style>
+</head>
+<body class="min-h-screen transition-colors duration-500">
+    <!-- Floating background shapes -->
+    <div class="floating-shapes">
+        <div class="shape dark-shape" style="width: 100px; height: 100px; background: var(--primary); top: 10%; left: 5%; animation-duration: 25s;"></div>
+        <div class="shape dark-shape" style="width: 150px; height: 150px; background: var(--secondary); top: 60%; left: 80%; animation-duration: 30s; animation-delay: 5s;"></div>
+        <div class="shape dark-shape" style="width: 80px; height: 80px; background: var(--accent); top: 30%; left: 70%; animation-duration: 20s; animation-delay: 10s;"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 bg-white/80 dark:bg-neutral-950/95 backdrop-blur-md border-b border-stone-200/50 dark:border-neutral-800/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-2">
+                    <i class="fas fa-spa text-emerald-600 text-xl"></i>
+                    <span class="font-bold text-lg text-stone-900 dark:text-stone-100">SOMA Sanctuary</span>
+                </div>
+                
+                <div class="flex items-center space-x-4">
+                    <button onclick="toggleTheme()" class="p-2 rounded-full hover:bg-stone-100 dark:hover:bg-neutral-800 transition-colors theme-toggle-container">
+                        <i class="fas fa-moon light-icon text-stone-600"></i>
+                        <i class="fas fa-sun dark-icon text-yellow-400 hidden"></i>
+                    </button>
+                    
+                    <button onclick="toggleLanguage()" class="px-4 py-2 rounded-full bg-stone-100 dark:bg-neutral-800 text-stone-700 dark:text-stone-300 hover:bg-stone-200 dark:hover:bg-neutral-700 transition-colors">
+                        <span data-lang="zh" class="hidden">EN</span>
+                        <span data-lang="en" class="">中文</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="section-padding pt-24 relative hero-pattern">
+        <div class="max-w-7xl mx-auto relative z-10">
+            <div class="text-center max-w-4xl mx-auto">
+                <div class="mb-8">
+                    <div class="inline-block p-4 rounded-full bg-gradient-to-r from-purple-100 to-emerald-100 dark:from-purple-950/30 dark:to-emerald-950/30 mb-6">
+                        <i class="fas fa-seedling text-4xl text-emerald-600 dark:text-emerald-400 pulse-effect"></i>
+                    </div>
+                </div>
+                <h1 class="text-5xl md:text-7xl font-light mb-6 leading-tight">
+                    <span class="block text-stone-900 dark:text-stone-100" data-lang="zh">身心疗愈圣所</span>
+                    <span class="block text-stone-900 dark:text-stone-100 hidden" data-lang="en">Sacred Space for Holistic Healing</span>
+                </h1>
+                <p class="text-xl md:text-2xl text-stone-600 dark:text-stone-400 mb-8 leading-relaxed">
+                    <span data-lang="zh">在深圳繁华都市中，为您打造专属的情绪释放与能量疗愈体验</span>
+                    <span data-lang="en" class="hidden">Creating exclusive emotional release and energy healing experiences in Shenzhen's bustling cityscape</span>
+                </p>
+                <button class="btn-primary text-white px-8 py-4 rounded-full text-lg font-medium shadow-lg hover:shadow-xl transform transition-all duration-300">
+                    <span data-lang="zh">开启私密预约</span>
+                    <span data-lang="en" class="hidden">Book Your Ritual</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="section-padding bg-gradient-to-br from-stone-50 to-purple-50/30 dark:from-neutral-950 dark:to-purple-950/20 relative">
+        <div class="floating-element dark-floating-element"></div>
+        <div class="floating-element dark-floating-element"></div>
+        <div class="floating-element dark-floating-element"></div>
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-light mb-6 text-stone-900 dark:text-stone-100">
+                    <span data-lang="zh">我们的成就</span>
+                    <span data-lang="en" class="hidden">Our Achievements</span>
+                </h2>
+            </div>
+            
+            <div class="stats-card">
+                <div class="stat-item">
+                    <div class="stat-number">500+</div>
+                    <h3 class="text-xl font-medium text-stone-900 dark:text-stone-100">
+                        <span data-lang="zh">满意客户</span>
+                        <span data-lang="en" class="hidden">Happy Clients</span>
+                    </h3>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">50+</div>
+                    <h3 class="text-xl font-medium text-stone-900 dark:text-stone-100">
+                        <span data-lang="zh">专业疗愈师</span>
+                        <span data-lang="en" class="hidden">Expert Healers</span>
+                    </h3>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">10+</div>
+                    <h3 class="text-xl font-medium text-stone-900 dark:text-stone-100">
+                        <span data-lang="zh">年经验</span>
+                        <span data-lang="en" class="hidden">Years Experience</span>
+                    </h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="section-padding bg-gradient-to-br from-stone-50 to-emerald-50/30 dark:from-neutral-950 dark:to-emerald-950/20">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-light mb-6 text-stone-900 dark:text-stone-100">
+                    <span data-lang="zh">疗愈流程</span>
+                    <span data-lang="en" class="hidden">Healing Process</span>
+                </h2>
+            </div>
+            
+            <div class="max-w-4xl mx-auto">
+                <div class="process-step">
+                    <div class="step-number">1</div>
+                    <h3 class="text-2xl font-medium mb-2 text-stone-900 dark:text-stone-100">
+                        <span data-lang="zh">初步咨询</span>
+                        <span data-lang="en" class="hidden">Initial Consultation</span>
+                    </h3>
+                    <p class="text-stone-600 dark:text-stone-400">
+                        <span data-lang="zh">了解您的需求和期望，制定个性化疗愈方案</span>
+                        <span data-lang="en" class="hidden">Understanding your needs and expectations, creating a personalized healing plan</span>
+                    </p>
+                </div>
+                
+                <div class="process-step">
+                    <div class="step-number">2</div>
+                    <h3 class="text-2xl font-medium mb-2 text-stone-900 dark:text-stone-100">
+                        <span data-lang="zh">深度疗愈</span>
+                        <span data-lang="en" class="hidden">Deep Healing</span>
+                    </h3>
+                    <p class="text-stone-600 dark:text-stone-400">
+                        <span data-lang="zh">专业疗愈师引导，释放情绪阻塞，唤醒内在能量</span>
+                        <span data-lang="en" class="hidden">Professional healer guidance, releasing emotional blocks, awakening inner energy</span>
+                    </p>
+                </div>
+                
+                <div class="process-step">
+                    <div class="step-number">3</div>
+                    <h3 class="text-2xl font-medium mb-2 text-stone-900 dark:text-stone-100">
+                        <span data-lang="zh">整合恢复</span>
+                        <span data-lang="en" class="hidden">Integration & Recovery</span>
+                    </h3>
+                    <p class="text-stone-600 dark:text-stone-400">
+                        <span data-lang="zh">巩固疗愈效果，提供后续支持与建议</span>
+                        <span data-lang="en" class="hidden">Consolidating healing effects, providing follow-up support and recommendations</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Urban Pain Points -->
+    <section class="section-padding bg-gradient-to-br from-stone-50 to-emerald-50/30 dark:from-neutral-950 dark:to-emerald-950/20 relative">
+        <div class="gradient-overlay dark-gradient-overlay"></div>
+        <div class="max-w-7xl mx-auto relative z-10">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-light mb-6 text-stone-900 dark:text-stone-100">
+                    <span data-lang="zh">都市女性的心灵困境</span>
+                    <span data-lang="en" class="hidden">Urban Women's Inner Struggles</span>
+                </h2>
+                <p class="text-lg text-stone-600 dark:text-stone-400 max-w-2xl mx-auto">
+                    <span data-lang="zh">在快节奏的生活中，我们常常忽略了内在的声音</span>
+                    <span data-lang="en" class="hidden">In our fast-paced lives, we often ignore our inner voice</span>
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="treatment-card p-8 rounded-2xl border border-stone-200/50 dark:border-neutral-800/50 hover:scale-[1.02] transition-transform duration-300">
+                    <div class="w-16 h-16 bg-gradient-to-br from-red-100 to-pink-100 dark:from-red-950/30 dark:to-pink-950/30 rounded-full flex items-center justify-center mb-6 floating-animation">
+                        <i class="fas fa-heart-broken text-2xl text-red-600 dark:text-red-400"></i>
+                    </div>
+                    <h3 class="text-2xl font-medium mb-4 text-stone-900 dark:text-stone-100">
+                        <span data-lang="zh">身心分离</span>
+                        <span data-lang="en" class="hidden">Disconnection</span>
+                    </h3>
+                    <p class="text-stone-600 dark:text-stone-400 leading-relaxed">
+                        <span data-lang="zh">忙碌工作让我们与身体失去连接，忽视内在需求</span>
+                        <span data-lang="en" class="hidden">Busy work makes us lose connection with our bodies, ignoring inner needs</span>
+                    </p>
+                </div>
+                
+                <div class="treatment-card p-8 rounded-2xl border border-stone-200/50 dark:border-neutral-800/50 hover:scale-[1.02] transition-transform duration-300" style="animation-delay: 0.5s;">
+                    <div class="w-16 h-16 bg-gradient-to-br from-orange-100 to-yellow-100 dark:from-orange-950/30 dark:to-yellow-950/30 rounded-full flex items-center justify-center mb-6">
+                        <i class="fas fa-lock text-2xl text-orange-600 dark:text-orange-400"></i>
+                    </div>
+                    <h3 class="text-2xl font-medium mb-4 text-stone-900 dark:text-stone-100">
+                        <span data-lang="zh">情绪卡点</span>
+                        <span data-lang="en" class="hidden">Emotional Blocks</span>
+                    </h3>
+                    <p class="text-stone-600 dark:text-stone-400 leading-relaxed">
+                        <span data-lang="zh">压抑的情绪形成阻塞，影响身心健康与生活品质</span>
+                        <span data-lang="en" class="hidden">Suppressed emotions create blockages affecting mental and physical health</span>
+                    </p>
+                </div>
+                
+                <div class="treatment-card p-8 rounded-2xl border border-stone-200/50 dark:border-neutral-800/50 hover:scale-[1.02] transition-transform duration-300" style="animation-delay: 1s;">
+                    <div class="w-16 h-16 bg-gradient-to-br from-blue-100 to-cyan-100 dark:from-blue-950/30 dark:to-cyan-950/30 rounded-full flex items-center justify-center mb-6">
+                        <i class="fas fa-battery-empty text-2xl text-blue-600 dark:text-blue-400"></i>
+                    </div>
+                    <h3 class="text-2xl font-medium mb-4 text-stone-900 dark:text-stone-100">
+                        <span data-lang="zh">能量低迷</span>
+                        <span data-lang="en" class="hidden">Low Vitality</span>
+                    </h3>
+                    <p class="text-stone-600 dark:text-stone-400 leading-relaxed">
+                        <span data-lang="zh">长期压力消耗生命能量，渴望重新焕发活力</span>
+                        <span data-lang="en" class="hidden">Long-term stress depletes life energy, yearning to reignite vitality</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Core Treatments -->
+    <section class="section-padding relative">
+        <div class="gradient-overlay dark-gradient-overlay"></div>
+        <div class="max-w-7xl mx-auto relative z-10">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-light mb-6 text-stone-900 dark:text-stone-100">
+                    <span data-lang="zh">核心疗愈项目</span>
+                    <span data-lang="en" class="hidden">Core Healing Services</span>
+                </h2>
+                <p class="text-lg text-stone-600 dark:text-stone-400 max-w-2xl mx-auto">
+                    <span data-lang="zh">专业定制的身心整合疗愈方案</span>
+                    <span data-lang="en" class="hidden">Professionally tailored holistic healing solutions</span>
+                </p>
+            </div>
+            
+            <div class="grid lg:grid-cols-2 gap-12">
+                <div class="group">
+                    <div class="treatment-card p-10 hover:scale-[1.02] transition-transform duration-500">
+                        <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-purple-200 to-pink-200 dark:from-purple-800/30 dark:to-pink-800/30 rounded-full opacity-20 group-hover:animate-pulse"></div>
+                        <h3 class="text-3xl font-medium mb-4 text-stone-900 dark:text-stone-100 relative z-10">
+                            <span data-lang="zh">索玛情绪释放疗愈</span>
+                            <span data-lang="en" class="hidden">Somatic Emotional Release</span>
+                        </h3>
+                        <p class="text-stone-600 dark:text-stone-400 mb-6 leading-relaxed relative z-10">
+                            <span data-lang="zh">通过身体感知技术释放深层情绪创伤，重建内在平衡与和谐</span>
+                            <span data-lang="en" class="hidden">Release deep emotional trauma through body awareness techniques, rebuilding inner balance and harmony</span>
+                        </p>
+                        <div class="flex items-center space-x-4 text-sm text-emerald-600 dark:text-emerald-400 relative z-10">
+                            <i class="fas fa-clock"></i>
+                            <span data-lang="zh">90分钟疗程</span>
+                            <span data-lang="en" class="hidden">90-minute session</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="group">
+                    <div class="treatment-card p-10 hover:scale-[1.02] transition-transform duration-500">
+                        <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-emerald-200 to-teal-200 dark:from-emerald-800/30 dark:to-teal-800/30 rounded-full opacity-20 group-hover:animate-pulse"></div>
+                        <h3 class="text-3xl font-medium mb-4 text-stone-900 dark:text-stone-100 relative z-10">
+                            <span data-lang="zh">源泉子宫能量唤醒</span>
+                            <span data-lang="en" class="hidden">Womb Energy Re-balancing</span>
+                        </h3>
+                        <p class="text-stone-600 dark:text-stone-400 mb-6 leading-relaxed relative z-10">
+                            <span data-lang="zh">激活女性生命能量中心，促进自我认知与内在力量觉醒</span>
+                            <span data-lang="en" class="hidden">Activate the female life energy center, promoting self-awareness and inner power awakening</span>
+                        </p>
+                        <div class="flex items-center space-x-4 text-sm text-emerald-600 dark:text-emerald-400 relative z-10">
+                            <i class="fas fa-clock"></i>
+                            <span data-lang="zh">120分钟疗程</span>
+                            <span data-lang="en" class="hidden">120-minute session</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="section-padding bg-gradient-to-br from-stone-50 to-purple-50/30 dark:from-neutral-950 dark:to-purple-950/20 relative">
+        <div class="gradient-overlay dark-gradient-overlay"></div>
+        <div class="max-w-7xl mx-auto relative z-10">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-light mb-6 text-stone-900 dark:text-stone-100">
+                    <span data-lang="zh">客户见证</span>
+                    <span data-lang="en" class="hidden">Client Testimonials</span>
+                </h2>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="testimonial-card">
+                    <div class="quote-mark">"</div>
+                    <p class="text-stone-600 dark:text-stone-400 mb-4 leading-relaxed">
+                        <span data-lang="zh">在这里找到了久违的内心平静，疗愈师非常专业，让我重新连接了自己的身体和情感。</span>
+                        <span data-lang="en" class="hidden">I found long-lost inner peace here. The healer was very professional, helping me reconnect with my body and emotions.</span>
+                    </p>
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 bg-gradient-to-br from-purple-200 to-pink-200 dark:from-purple-950/30 dark:to-pink-950/30 rounded-full flex items-center justify-center mr-3">
+                            <i class="fas fa-user text-purple-600 dark:text-purple-400"></i>
+                        </div>
+                        <div>
+                            <div class="font-medium text-stone-900 dark:text-stone-100">李女士</div>
+                            <div class="text-sm text-stone-500 dark:text-stone-400">
+                                <span data-lang="zh">企业高管</span>
+                                <span data-lang="en" class="hidden">Corporate Executive</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="quote-mark">"</div>
+                    <p class="text-stone-600 dark:text-stone-400 mb-4 leading-relaxed">
+                        <span data-lang="zh">索玛疗愈彻底改变了我的生活态度，我学会了如何与自己的情绪和谐相处。</span>
+                        <span data-lang="en" class="hidden">Somatic healing completely changed my life perspective. I learned how to harmonize with my emotions.</span>
+                    </p>
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 bg-gradient-to-br from-emerald-200 to-teal-200 dark:from-emerald-950/30 dark:to-teal-950/30 rounded-full flex items-center justify-center mr-3">
+                            <i class="fas fa-user text-emerald-600 dark:text-emerald-400"></i>
+                        </div>
+                        <div>
+                            <div class="font-medium text-stone-900 dark:text-stone-100">王女士</div>
+                            <div class="text-sm text-stone-500 dark:text-stone-400">
+                                <span data-lang="zh">自由职业者</span>
+                                <span data-lang="en" class="hidden">Freelancer</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="quote-mark">"</div>
+                    <p class="text-stone-600 dark:text-stone-400 mb-4 leading-relaxed">
+                        <span data-lang="zh">源泉疗愈唤醒了我内在的力量，现在我能更好地面对生活中的挑战。</span>
+                        <span data-lang="en" class="hidden">Womb healing awakened my inner strength. Now I can better face challenges in life.</span>
+                    </p>
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 bg-gradient-to-br from-pink-200 to-rose-200 dark:from-pink-950/30 dark:to-rose-950/30 rounded-full flex items-center justify-center mr-3">
+                            <i class="fas fa-user text-pink-600 dark:text-pink-400"></i>
+                        </div>
+                        <div>
+                            <div class="font-medium text-stone-900 dark:text-stone-100">张女士</div>
+                            <div class="text-sm text-stone-500 dark:text-stone-400">
+                                <span data-lang="zh">艺术家</span>
+                                <span data-lang="en" class="hidden">Artist</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Privacy Promise -->
+    <section class="section-padding bg-gradient-to-br from-stone-50 to-purple-50/30 dark:from-neutral-950 dark:to-purple-950/20 relative">
+        <div class="gradient-overlay dark-gradient-overlay"></div>
+        <div class="max-w-7xl mx-auto relative z-10">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-light mb-6 text-stone-900 dark:text-stone-100">
+                    <span data-lang="zh">隐私安全承诺</span>
+                    <span data-lang="en" class="hidden">Privacy & Safety Commitment</span>
+                </h2>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="treatment-card p-8 rounded-2xl border border-stone-200/50 dark:border-neutral-800/50 hover:scale-[1.02] transition-transform duration-300">
+                    <div class="w-20 h-20 bg-gradient-to-br from-green-100 to-emerald-100 dark:from-green-950/30 dark:to-emerald-950/30 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-lock text-2xl text-emerald-600 dark:text-emerald-400"></i>
+                    </div>
+                    <h3 class="text-xl font-medium mb-3 text-stone-900 dark:text-stone-100">
+                        <span data-lang="zh">独立私密空间</span>
+                        <span data-lang="en" class="hidden">Private Sanctuary</span>
+                    </h3>
+                    <p class="text-stone-600 dark:text-stone-400">
+                        <span data-lang="zh">100%独立房间，确保您的隐私与舒适</span>
+                        <span data-lang="en" class="hidden">100% private rooms ensuring your privacy and comfort</span>
+                    </p>
+                </div>
+                
+                <div class="treatment-card p-8 rounded-2xl border border-stone-200/50 dark:border-neutral-800/50 hover:scale-[1.02] transition-transform duration-300">
+                    <div class="w-20 h-20 bg-gradient-to-br from-blue-100 to-indigo-100 dark:from-blue-950/30 dark:to-indigo-950/30 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-shield-alt text-2xl text-blue-600 dark:text-blue-400"></i>
+                    </div>
+                    <h3 class="text-xl font-medium mb-3 text-stone-900 dark:text-stone-100">
+                        <span data-lang="zh">专业认证团队</span>
+                        <span data-lang="en" class="hidden">Certified Professionals</span>
+                    </h3>
+                    <p class="text-stone-600 dark:text-stone-400">
+                        <span data-lang="zh">国际认证疗愈师，严格专业标准</span>
+                        <span data-lang="en" class="hidden">Internationally certified healers, strict professional standards</span>
+                    </p>
+                </div>
+                
+                <div class="treatment-card p-8 rounded-2xl border border-stone-200/50 dark:border-neutral-800/50 hover:scale-[1.02] transition-transform duration-300">
+                    <div class="w-20 h-20 bg-gradient-to-br from-purple-100 to-pink-100 dark:from-purple-950/30 dark:to-pink-950/30 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-calendar-check text-2xl text-purple-600 dark:text-purple-400"></i>
+                    </div>
+                    <h3 class="text-xl font-medium mb-3 text-stone-900 dark:text-stone-100">
+                        <span data-lang="zh">单客预约制</span>
+                        <span data-lang="en" class="hidden">Exclusive Booking</span>
+                    </h3>
+                    <p class="text-stone-600 dark:text-stone-400">
+                        <span data-lang="zh">一对一专属服务，拒绝拼场共享</span>
+                        <span data-lang="en" class="hidden">One-on-one exclusive service, no shared sessions</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Booking Form -->
+    <section class="section-padding relative">
+        <div class="gradient-overlay dark-gradient-overlay"></div>
+        <div class="max-w-2xl mx-auto relative z-10">
+            <div class="treatment-card p-10 rounded-3xl border border-stone-200/50 dark:border-neutral-800/50">
+                <h2 class="text-3xl font-medium mb-8 text-center text-stone-900 dark:text-stone-100">
+                    <span data-lang="zh">开启您的私密疗愈之旅</span>
+                    <span data-lang="en" class="hidden">Begin Your Private Healing Journey</span>
+                </h2>
+                
+                <form class="space-y-6">
+                    <div>
+                        <label class="block text-sm font-medium text-stone-700 dark:text-stone-300 mb-2">
+                            <span data-lang="zh">姓名 Name</span>
+                            <span data-lang="en" class="hidden">Name</span>
+                        </label>
+                        <input type="text" class="w-full px-4 py-3 rounded-xl border border-stone-200 dark:border-neutral-700 bg-white/50 dark:bg-neutral-900/80 focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition-all">
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-stone-700 dark:text-stone-300 mb-2">
+                            <span data-lang="zh">联系方式 WeChat/Phone</span>
+                            <span data-lang="en" class="hidden">Contact WeChat/Phone</span>
+                        </label>
+                        <input type="text" class="w-full px-4 py-3 rounded-xl border border-stone-200 dark:border-neutral-700 bg-white/50 dark:bg-neutral-900/80 focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition-all">
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-stone-700 dark:text-stone-300 mb-2">
+                            <span data-lang="zh">意向疗程 Desired Service</span>
+                            <span data-lang="en" class="hidden">Desired Service</span>
+                        </label>
+                        <select class="w-full px-4 py-3 rounded-xl border border-stone-200 dark:border-neutral-700 bg-white/50 dark:bg-neutral-900/80 focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition-all">
+                            <option value="">
+                                <span data-lang="zh">请选择 Select</span>
+                                <span data-lang="en" class="hidden">Select</span>
+                            </option>
+                            <option value="somatic">
+                                <span data-lang="zh">索玛情绪释放疗愈 Somatic Emotional Release</span>
+                                <span data-lang="en" class="hidden">Somatic Emotional Release</span>
+                            </option>
+                            <option value="womb">
+                                <span data-lang="zh">源泉子宫能量唤醒 Womb Energy Re-balancing</span>
+                                <span data-lang="en" class="hidden">Womb Energy Re-balancing</span>
+                            </option>
+                        </select>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-stone-700 dark:text-stone-300 mb-2">
+                        <span data-lang="zh">预约日期 Preferred Date</span>
+                        <span data-lang="en" class="hidden">Preferred Date</span>
+                    </label>
+                    <input type="date" class="w-full px-4 py-3 rounded-xl border border-stone-200 dark:border-neutral-700 bg-white/50 dark:bg-neutral-900/80 focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition-all">
+                    </div>
+                    
+                    <button type="submit" class="btn-primary w-full text-white py-4 rounded-xl text-lg font-medium hover:shadow-xl transform transition-all duration-300">
+                        <span data-lang="zh">提交预约 Submit Booking</span>
+                        <span data-lang="en" class="hidden">Submit Booking</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-8 text-center text-stone-600 dark:text-stone-400 border-t border-stone-200 dark:border-neutral-800 relative z-10">
+        <p>&copy; 2026 SOMA Sanctuary. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Theme Toggle
+        function toggleTheme() {
+            const html = document.documentElement;
+            if (html.classList.contains('dark-theme')) {
+                html.classList.remove('dark-theme');
+                html.classList.add('light-theme');
+                localStorage.setItem('theme', 'light');
+            } else {
+                html.classList.remove('light-theme');
+                html.classList.add('dark-theme');
+                localStorage.setItem('theme', 'dark');
+            }
+            
+            // Update the theme icons after toggling
+            updateThemeIcons();
+        }
+
+        // Update theme icons based on current theme
+        function updateThemeIcons() {
+            const themeContainer = document.querySelector('.theme-toggle-container');
+            const lightIcon = themeContainer.querySelector('.light-icon');
+            const darkIcon = themeContainer.querySelector('.dark-icon');
+            
+            if (document.documentElement.classList.contains('dark-theme')) {
+                lightIcon.style.display = 'none';
+                darkIcon.style.display = 'inline';
+            } else {
+                lightIcon.style.display = 'inline';
+                darkIcon.style.display = 'none';
+            }
+        }
+
+        // Language Toggle
+        function toggleLanguage() {
+            const currentLang = document.body.getAttribute('data-current-lang') || 'zh';
+            const newLang = currentLang === 'zh' ? 'en' : 'zh';
+            
+            document.body.setAttribute('data-current-lang', newLang);
+            
+            // Show/hide language-specific content
+            document.querySelectorAll('[data-lang]').forEach(element => {
+                if (element.getAttribute('data-lang') === newLang) {
+                    element.classList.remove('hidden');
+                } else {
+                    element.classList.add('hidden');
+                }
+            });
+            
+            // Update button text based on current language
+            const langButton = document.querySelector('[onclick="toggleLanguage()"]');
+            if (newLang === 'zh') {
+                langButton.querySelector('[data-lang="zh"]').classList.remove('hidden');
+                langButton.querySelector('[data-lang="en"]').classList.add('hidden');
+            } else {
+                langButton.querySelector('[data-lang="zh"]').classList.add('hidden');
+                langButton.querySelector('[data-lang="en"]').classList.remove('hidden');
+            }
+            
+            localStorage.setItem('language', newLang);
+        }
+
+        // Initialize theme and language on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set saved theme
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme) {
+                document.documentElement.className = savedTheme + '-theme';
+            } else {
+                // If no saved theme, check system preference
+                if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                    document.documentElement.classList.add('dark-theme');
+                    localStorage.setItem('theme', 'dark');
+                }
+            }
+            
+            // Set saved language
+            const savedLanguage = localStorage.getItem('language');
+            if (savedLanguage) {
+                document.body.setAttribute('data-current-lang', savedLanguage);
+                
+                // Show appropriate language content
+                document.querySelectorAll('[data-lang]').forEach(element => {
+                    if (element.getAttribute('data-lang') === savedLanguage) {
+                        element.classList.remove('hidden');
+                    } else {
+                        element.classList.add('hidden');
+                    }
+                });
+                
+                // Update button text based on saved language
+                const langButton = document.querySelector('[onclick="toggleLanguage()"]');
+                if (savedLanguage === 'zh') {
+                    langButton.querySelector('[data-lang="zh"]').classList.remove('hidden');
+                    langButton.querySelector('[data-lang="en"]').classList.add('hidden');
+                } else {
+                    langButton.querySelector('[data-lang="zh"]').classList.add('hidden');
+                    langButton.querySelector('[data-lang="en"]').classList.remove('hidden');
+                }
+            } else {
+                // Default: show English text on button when default is Chinese
+                document.querySelector('[onclick="toggleLanguage()"]').querySelector('[data-lang="zh"]').classList.remove('hidden');
+                document.querySelector('[onclick="toggleLanguage()"]').querySelector('[data-lang="en"]').classList.add('hidden');
+            }
+            
+            // Update theme icons after initialization
+            setTimeout(updateThemeIcons, 100);
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
