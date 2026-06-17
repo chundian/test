@@ -458,10 +458,11 @@
                     <span id="heroDescZH" class="text-stone-600 dark:text-stone-400">在深圳繁华都市中，为您打造专属的情绪释放与能量疗愈体验</span>
                     <span id="heroDescEN" class="text-stone-600 dark:text-stone-400 hidden">Creating exclusive emotional release and energy healing experiences in Shenzhen's bustling cityscape</span>
                 </p>
-                <button id="appointmentBtn" class="btn-primary text-white px-8 py-4 rounded-full text-lg font-medium shadow-lg hover:shadow-xl transform transition-all duration-300">
-                    <span id="appointmentTextZH">开启私密预约</span>
-                    <span id="appointmentTextEN" class="hidden">Book Your Ritual</span>
-                </button>
+                <a href="#bookingFormSection" id="appointmentBtn" class="btn-primary text-white px-8 py-4 rounded-full text-lg font-medium shadow-lg hover:shadow-xl transform transition-all duration-300 inline-block text-center">
+               <span id="appointmentTextZH">开启私密预约</span>
+              <span id="appointmentTextEN" class="hidden">Book Your Ritual</span>
+                </a>
+
             </div>
         </div>
     </section>
@@ -806,7 +807,7 @@
     </section>
 
     <!-- Booking Form -->
-    <section class="section-padding relative">
+<section id="bookingFormSection" class="section-padding relative">
         <div class="gradient-overlay dark-gradient-overlay"></div>
         <div class="max-w-2xl mx-auto relative z-10">
             <div class="treatment-card p-10 rounded-3xl border border-stone-200/50 dark:border-neutral-800/50">
@@ -919,22 +920,19 @@
         }
 
         // Language Toggle
-        function toggleLanguage() {
-            currentLang = currentLang === 'zh' ? 'en' : 'zh';
-            
-            // Update all language-specific elements
-            updateLanguageElements();
-            
-            // Update button text
-            const langButton = document.getElementById('langButtonText');
-            if (currentLang === 'zh') {
-                langButton.textContent = 'EN';
-            } else {
-                langButton.textContent = '中文';
-            }
-            
-            localStorage.setItem('language', currentLang);
-        }
+function toggleLanguage() {
+    currentLang = currentLang === 'zh' ? 'en' : 'zh';
+    // 立即更新页面上所有带有 ZH/EN 后缀的元素显隐
+    updateLanguageElements();
+    
+    // 动态更正按钮自身的文字提示
+    const langButton = document.getElementById('langButtonText');
+    if (langButton) {
+        // 如果当前切换到了中文界面，按钮应该显示“EN”供外籍客户切换；反之显示“中文”
+        langButton.textContent = currentLang === 'zh' ? 'EN' : '中文';
+    }
+    localStorage.setItem('language', currentLang);
+}
 
         // Update all language elements
         function updateLanguageElements() {
@@ -1027,11 +1025,15 @@
             // Update theme icons after initialization
             setTimeout(updateThemeIcons, 100);
             
-            // Add click event to appointment button for smooth scrolling
+                        // 修复后的预约按钮平滑滚动逻辑
             const appointmentBtn = document.getElementById('appointmentBtn');
             if (appointmentBtn) {
-                appointmentBtn.addEventListener('click', function() {
-                    const bookingSection = document.querySelector('#bookingTitleZH').closest('section');
+                appointmentBtn.addEventListener('click', function(e) {
+                    e.preventDefault(); // 阻止任何默认行为
+                    
+                    // 直接通过 ID 精准定位到表单的外层 section 容器（即原代码第 884 行的那个 section）
+                    const bookingSection = document.getElementById('bookingFormSection') || document.querySelector('#bookingTitleZH').closest('section');
+                    
                     if (bookingSection) {
                         bookingSection.scrollIntoView({
                             behavior: 'smooth',
